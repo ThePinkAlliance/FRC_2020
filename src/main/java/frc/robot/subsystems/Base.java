@@ -54,7 +54,7 @@ public class Base extends SubsystemBase {
 
     System.out.println("Right Command: " + rightGovernor);
     System.out.println("Left Command: " + leftGovernor);
-    
+
     diffDrive.tankDrive(leftGovernor, rightGovernor);
 	}
 }

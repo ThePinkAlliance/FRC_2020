@@ -33,7 +33,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(5), () -> mainJS.getRawAxis(1)));
-    m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
+    m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3))); 
   }
 
   private void configureButtonBindings() {
