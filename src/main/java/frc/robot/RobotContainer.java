@@ -3,14 +3,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.DriveManual;
-// import frc.robot.subsystems.Shooter;
+import frc.robot.commands.FlywheelManual;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Base;
 
 
 public class RobotContainer {
   private final Command m_autoCommand = null;
   private final Base    m_base        = new Base();
-  // private final Shooter m_shooter     = new Shooter();
+  private final Shooter m_shooter     = new Shooter();
 
   public static int baseRightFrontCANID   = 10; // Brushless
   public static int baseRightBackCANID    = 11; // Brushless
@@ -31,8 +32,8 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
 
-    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(3), () -> mainJS.getRawAxis(1)));
-    // m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> baseJS.getRawAxis(1)));
+    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(5), () -> mainJS.getRawAxis(1)));
+    m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
   }
 
   private void configureButtonBindings() {
