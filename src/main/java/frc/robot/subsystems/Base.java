@@ -22,14 +22,14 @@ public class Base extends SubsystemBase {
   CANEncoder rightBackEncoder  = new CANEncoder(rightBack);
   CANEncoder leftBackEncoder   = new CANEncoder(leftBack);
 
-  private double rightGovernor = 0;
-  private double leftGovernor = 0;
+  private double rightGovernor;
+  private double leftGovernor;
 
   public Base() {
-    rightFront.setInverted(false);
-    leftFront.setInverted(false);
-    rightBack.setInverted(false);
-    leftBack.setInverted(false);
+    rightFront.setInverted(true);
+    leftFront.setInverted(true);
+    rightBack.setInverted(true);
+    leftBack.setInverted(true);
 
     rightBack.follow(rightFront);
     leftBack.follow(leftFront);
@@ -52,6 +52,9 @@ public class Base extends SubsystemBase {
     rightGovernor = -right * Constants.baseMotorGain;
     leftGovernor = -left * Constants.baseMotorGain;
 
+    System.out.println("Right Command: " + rightGovernor);
+    System.out.println("Left Command: " + leftGovernor);
+    
     diffDrive.tankDrive(leftGovernor, rightGovernor);
 	}
 }

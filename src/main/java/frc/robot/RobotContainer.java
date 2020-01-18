@@ -12,9 +12,6 @@ public class RobotContainer {
   private final Base    m_base        = new Base();
   // private final Shooter m_shooter     = new Shooter();
 
-  private double baseRightJoystick = 0;
-  private double baseLeftJoystick  = 0;
-
   public static int baseRightFrontCANID   = 10; // Brushless
   public static int baseRightBackCANID    = 11; // Brushless
   public static int baseLeftFrontCANID    = 12; // Brushless
@@ -34,13 +31,11 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
 
-    m_base.setDefaultCommand(new DriveManual(m_base, () -> baseRightJoystick, () -> baseLeftJoystick));
+    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(3), () -> mainJS.getRawAxis(1)));
     // m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> baseJS.getRawAxis(1)));
   }
 
   private void configureButtonBindings() {
-    baseRightJoystick = mainJS.getRawAxis(3);
-    baseLeftJoystick  = mainJS.getRawAxis(1);
   }
 
   public Command getAutonomousCommand() {
