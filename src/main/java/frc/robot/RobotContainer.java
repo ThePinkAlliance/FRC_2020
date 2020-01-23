@@ -1,17 +1,22 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.CollectorManual;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.FlywheelManual;
+import frc.robot.commands.ShooterAim;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Base;
+import frc.robot.subsystems.Collector;
 
 
 public class RobotContainer {
-  private final Command m_autoCommand = null;
-  private final Base    m_base        = new Base();
-  private final Shooter m_shooter     = new Shooter();
+  private final Command   m_autoCommand = null;
+  private final Base      m_base        = new Base();
+  private final Shooter   m_shooter     = new Shooter();
+  private final Collector m_collector   = new Collector();
 
   public static int baseRightFrontCANID   = 10; // Brushless
   public static int baseRightBackCANID    = 11; // Brushless
@@ -33,10 +38,12 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(5), () -> mainJS.getRawAxis(1)));
-    m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3))); 
+    m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
+    m_collector.setDefaultCommand(new CollectorManual(m_collector, () -> mainJS.getRawAxis(2))); 
   }
 
   private void configureButtonBindings() {
+    new JoystickButton(mainJS, 1).whenHeld(new ShooterAim(m_shooter));
   }
 
   public Command getAutonomousCommand() {
