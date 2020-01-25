@@ -27,7 +27,7 @@ public class RobotContainer {
   public static int conveyorIndexerCANID  = 22; // Brushed
   public static int shooterRotateCANID    = 30; // Brushed
   public static int shooterFlywheelCANID  = 31; // Brushless
-  // public static int shooterFlywheel2CANID = 32; // Brushless
+  // public static int shooterFlywheelCANID = 10; // Brushless
   public static int climberLeftCANID      = 40; // Brushless
   public static int climberRightCANID     = 41; // Brushless
   public static int panelSpinnerCANID     = 50; // Brushed
@@ -43,7 +43,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(mainJS, 1).whenHeld(new ShooterAim(m_shooter));
+    // new JoystickButton(mainJS, 1).whenHeld(new ShooterAim(m_shooter));
   }
 
   public Command getAutonomousCommand() {
