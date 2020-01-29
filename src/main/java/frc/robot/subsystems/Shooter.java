@@ -27,6 +27,10 @@ public class Shooter extends SubsystemBase {
     return shooterLimelight;
   }
 
+  public boolean getLockonState() {
+    return  -5 < getLimelightError() || getLimelightError() < 5;
+  }
+
   public void setTurretSpeed(double turretPower) {
     turretPower = turretPower * Constants.shooterTurretMotorGain;
     shooterTurret.set(turretPower);

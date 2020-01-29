@@ -12,7 +12,7 @@ public class CollectorManual extends CommandBase {
   public CollectorManual(Collector subsystem, DoubleSupplier jsvalue) {
     m_collector = subsystem;
     JSValue   = jsvalue;
-
+    
     addRequirements(m_collector);
   }
 
