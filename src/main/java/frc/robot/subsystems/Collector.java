@@ -23,6 +23,6 @@ public class Collector extends SubsystemBase {
   }
 
   public boolean getBreakbeam() {
-    return breakbeam.get();
+    return !breakbeam.get();
   }
 }

@@ -44,7 +44,7 @@ public class RobotContainer {
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(5), () -> mainJS.getRawAxis(1)));
     m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
     m_collector.setDefaultCommand(new CollectorManual(m_collector, () -> mainJS.getRawAxis(2))); 
-    m_lights.setDefaultCommand(new LightsManual(m_lights, m_collector, m_base, m_shooter));
+    m_lights.setDefaultCommand(new LightsManual(m_lights, m_collector, m_shooter));
   }
 
   private void configureButtonBindings() {
