@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.CollectorManual;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.FlywheelManual;
-import frc.robot.commands.LightsManual;
+import frc.robot.commands.LightsController;
 import frc.robot.commands.ShooterAim;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Base;
@@ -30,7 +30,7 @@ public class RobotContainer {
   public static int conveyorIndexerCANID  = 22; // Brushed
   public static int shooterRotateCANID    = 30; // Brushed
   // public static int shooterFlywheelCANID  = 31; // Brushless
-  public static int shooterFlywheelCANID = 10; // Brushless
+  public static int shooterFlywheelCANID  = 10; // Brushless
   public static int climberLeftCANID      = 40; // Brushless
   public static int climberRightCANID     = 41; // Brushless
   public static int panelSpinnerCANID     = 50; // Brushed
@@ -44,7 +44,7 @@ public class RobotContainer {
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(5), () -> mainJS.getRawAxis(1)));
     m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
     m_collector.setDefaultCommand(new CollectorManual(m_collector, () -> mainJS.getRawAxis(2))); 
-    m_lights.setDefaultCommand(new LightsManual(m_lights, m_collector, m_shooter));
+    m_lights.setDefaultCommand(new LightsController(m_lights, m_collector, m_shooter));
   }
 
   private void configureButtonBindings() {

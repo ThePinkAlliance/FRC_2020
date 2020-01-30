@@ -6,12 +6,12 @@ import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Shooter;
 
-public class LightsManual extends CommandBase {
+public class LightsController extends CommandBase {
   private final Lights m_lights;
   private final Collector m_collector;
   private final Shooter m_shooter;
   
-  public LightsManual(Lights lights, Collector collector, Shooter shooter) {
+  public LightsController(Lights lights, Collector collector, Shooter shooter) {
     m_lights = lights;
     m_collector = collector;
     m_shooter = shooter;
