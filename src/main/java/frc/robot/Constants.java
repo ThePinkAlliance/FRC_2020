@@ -63,4 +63,7 @@ public final class Constants {
     public static double lightsGray = 0.95;
     public static double lightsDarkGray = 0.97;
     public static double lightsBlack = 0.99;
+
+    //CLIMBER CONSTANTS
+    public static double climbSpeed = 1;
 }
