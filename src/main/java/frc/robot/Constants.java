@@ -66,4 +66,7 @@ public final class Constants {
 
     //CLIMBER CONSTANTS
     public static double climbSpeed = 1;
+    public static boolean leftClimber = false;
+    public static boolean rightClimber = true;
+    public static double climberTop = 200;
 }

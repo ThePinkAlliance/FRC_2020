@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.ClimbUpManual;
+import frc.robot.commands.ClimbersUp;
 import frc.robot.commands.CollectorManual;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.FlywheelManual;
@@ -47,7 +47,7 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
 
-    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(5), () -> mainJS.getRawAxis(1)));
+    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(5)));
     m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
     m_collector.setDefaultCommand(new CollectorManual(m_collector, () -> mainJS.getRawAxis(2))); 
     m_lights.setDefaultCommand(new LightsController(m_lights, m_collector, m_shooter));
@@ -55,7 +55,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(mainJS, 1).whenHeld(new ShooterAim(m_shooter));
-    new JoystickButton(mainJS, 2).whenHeld(new ClimbUpManual(m_climber));
+    new JoystickButton(mainJS, 2).whenHeld(new ClimbersUp(m_climber));
   }
 
   public Command getAutonomousCommand() {

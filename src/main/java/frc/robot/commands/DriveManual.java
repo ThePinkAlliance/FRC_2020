@@ -10,7 +10,7 @@ public class DriveManual extends CommandBase {
   private       DoubleSupplier rightJSValue;
   private       DoubleSupplier leftJSValue;
 
-  public DriveManual(Base subsystem, DoubleSupplier rightjsvalue, DoubleSupplier leftjsvalue) {
+  public DriveManual(Base subsystem, DoubleSupplier leftjsvalue, DoubleSupplier rightjsvalue) {
     m_base       = subsystem;
     rightJSValue = rightjsvalue;
     leftJSValue  = leftjsvalue;

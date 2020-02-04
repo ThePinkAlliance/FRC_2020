@@ -11,13 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 import frc.robot.Constants;
 
-public class ClimbUpManual extends CommandBase {
-    private final Climber m_climber;
+
+public class ClimbersUp extends CommandBase {
+  private final Climber m_climber;
 
   /**
-   * Creates a new ClimbUpManual.
+   * Creates a new ClimbersUp.
    */
-  public ClimbUpManual(Climber subsystem) {
+  public ClimbersUp(Climber subsystem) {
     m_climber = subsystem;
 
     addRequirements(m_climber);
@@ -26,13 +27,23 @@ public class ClimbUpManual extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climber.driveClimbers(Constants.climbSpeed, Constants.climbSpeed);
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    m_climber.setClimberPos(Constants.climberTop, Constants.leftClimber);
+    m_climber.setClimberPos(Constants.climberTop, Constants.rightClimber);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climber.driveClimbers(0,0);
   }
 
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 }
