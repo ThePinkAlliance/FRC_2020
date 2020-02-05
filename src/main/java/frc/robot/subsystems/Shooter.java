@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-
 public class Shooter extends SubsystemBase {
   public CANSparkMax shooterTurret = new CANSparkMax(RobotContainer.shooterRotateCANID, MotorType.kBrushed);
   public CANSparkMax shooterFlywheel = new CANSparkMax(RobotContainer.shooterFlywheelCANID, MotorType.kBrushless);
+
   public double shooterLimelight = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+
   CANEncoder shooterFlywheelEncoder = new CANEncoder(shooterFlywheel);
 
   public Shooter() {
@@ -33,6 +34,7 @@ public class Shooter extends SubsystemBase {
 
   public void setTurretSpeed(double turretPower) {
     turretPower = turretPower * Constants.shooterTurretMotorGain;
+    
     shooterTurret.set(turretPower);
   }
 

@@ -15,7 +15,6 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.Lights;
 
-
 public class RobotContainer {
   private final Command   m_autoCommand = null;
   private final Base      m_base        = new Base();
@@ -33,14 +32,11 @@ public class RobotContainer {
   public static int conveyorIndexerCANID  = 22; // Brushed
   public static int shooterRotateCANID    = 30; // Brushed
   public static int shooterFlywheelCANID  = 31; // Brushless
-  //public static int shooterFlywheelCANID  = 10; // Brushless
   public static int climberLeftCANID      = 40; // Brushless
   public static int climberRightCANID     = 41; // Brushless
   public static int panelSpinnerCANID     = 50; // Brushed
   public static int lightsPWMPort         = 9;
-
-  //Solenoid ports
-  public static int climberSolPort = 0;
+  public static int climberSolPort        = 0;
 
   Joystick mainJS = new Joystick(0);
 

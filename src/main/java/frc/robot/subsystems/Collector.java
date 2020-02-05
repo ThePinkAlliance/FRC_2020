@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-
 public class Collector extends SubsystemBase {
   public Spark collector = new Spark(1);
+
   public DigitalInput breakbeam = new DigitalInput(0);
 
   public Collector() {

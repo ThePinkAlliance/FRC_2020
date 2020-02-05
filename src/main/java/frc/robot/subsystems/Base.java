@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-
 public class Base extends SubsystemBase {
   private CANSparkMax rightFront = new CANSparkMax(RobotContainer.baseRightFrontCANID, MotorType.kBrushless);
   private CANSparkMax leftFront  = new CANSparkMax(RobotContainer.baseLeftFrontCANID, MotorType.kBrushless);
@@ -42,12 +41,11 @@ public class Base extends SubsystemBase {
   public void tankDriveByJoystick(double left, double right) {
     rightGovernor = right * right;
     leftGovernor = left * left;
-    if (right < 0) {
+    
+    if (right < 0)
       rightGovernor = rightGovernor * -1;
-    }
-    if (left < 0) {
+    if (left < 0)
       leftGovernor = leftGovernor * -1;
-    }
 
     rightGovernor = -right * Constants.baseMotorGain;
     leftGovernor = -left * Constants.baseMotorGain;

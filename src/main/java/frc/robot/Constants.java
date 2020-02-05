@@ -1,6 +1,5 @@
 package frc.robot;
 
-
 public final class Constants {
     public static double baseMotorGain = 1; 
     public static double shooterFlywheelMotorGain = 0.6; // Approximately 0.6 for Trench and 0.35 for Close
@@ -64,7 +63,7 @@ public final class Constants {
     public static double lightsDarkGray = 0.97;
     public static double lightsBlack = 0.99;
 
-    //CLIMBER CONSTANTS
+    // Climber Constants
     public static double climbSpeed = 1;
     public static boolean leftClimber = false;
     public static boolean rightClimber = true;

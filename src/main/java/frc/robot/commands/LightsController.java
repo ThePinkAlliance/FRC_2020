@@ -12,9 +12,9 @@ public class LightsController extends CommandBase {
   private final Shooter m_shooter;
   
   public LightsController(Lights lights, Collector collector, Shooter shooter) {
-    m_lights = lights;
+    m_lights    = lights;
     m_collector = collector;
-    m_shooter = shooter;
+    m_shooter   = shooter;
 
     addRequirements(m_lights);
   }
@@ -25,13 +25,12 @@ public class LightsController extends CommandBase {
 
   @Override
   public void execute() {
-    if (m_collector.getBreakbeam()) {
+    if (m_collector.getBreakbeam())
       m_lights.setLights(Constants.lightsYellow);
-    } else if (m_shooter.getLockonState()) {
+    else if (m_shooter.getLockonState())
       m_lights.setLights(Constants.lightsGreen);
-    } else {
+    else
       m_lights.setLights(Constants.lightsColor1HeartbeatFast);
-    }
   }
 
   @Override
