@@ -1,14 +1,16 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Spark;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Collector extends SubsystemBase {
-  public Spark collector = new Spark(1);
-
-  public DigitalInput breakbeam = new DigitalInput(0);
+  private Solenoid collectorExtendSol = new Solenoid(RobotContainer.collectorSolPort);
+  CANSparkMax collector = new CANSparkMax(RobotContainer.collectorRollerCANID, MotorType.kBrushed);
 
   public Collector() {
     collector.setInverted(true);
@@ -22,7 +24,11 @@ public class Collector extends SubsystemBase {
     collector.set(collectorPower);
   }
 
-  public boolean getBreakbeam() {
-    return !breakbeam.get();
+  public void setCollectorExtendSol(boolean extend) {
+    collectorExtendSol.set(extend);
+  }
+
+  public boolean getCollectorExtendSol() {
+    return collectorExtendSol.get();
   }
 }

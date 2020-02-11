@@ -15,6 +15,9 @@ public class ClimbersUp extends CommandBase {
 
   @Override
   public void initialize() {
+    m_climber.setArmed(true);
+    m_climber.setSolenoids(Constants.climbersUnlocked);
+
   }
 
   @Override
@@ -25,10 +28,11 @@ public class ClimbersUp extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    m_climber.setSolenoids(Constants.climbersLocked);
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(m_climber.getClimberPos(true) - Constants.climberTop) > 10;
   }
 }

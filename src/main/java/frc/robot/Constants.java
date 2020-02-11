@@ -8,6 +8,13 @@ public final class Constants {
     public static double shooterkP = 0;
     public static double shooterkI = 0;
     public static double shooterkD = 0;
+    public static double shooterVelocity = 3500;
+    public static double conveyorSpeed = 0.5;
+    public static double collectorCollectSpeed = 0.8;
+    public static boolean collectorExtended = true;
+    public static boolean collectorRetracted = false;
+    public static double shooterClosePos = 0;
+    public static double shooterFarPos = 1;
 
     // Lights Pattern Options
     public static double lightsColor1BlendtoBlack = -0.03;
@@ -68,4 +75,6 @@ public final class Constants {
     public static boolean leftClimber = false;
     public static boolean rightClimber = true;
     public static double climberTop = 200;
+    public static boolean climbersLocked = true;
+    public static boolean climbersUnlocked = false;
 }
