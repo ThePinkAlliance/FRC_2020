@@ -42,9 +42,7 @@ public class Shooter extends SubsystemBase {
     shooterTurret.set(turretPower);
   }
 
-  public void setFlywheelSpeed(double flywheelPower) {
-    flywheelPower = flywheelPower * Constants.shooterFlywheelMotorGain;
-    
+  public void setFlywheelSpeed(double flywheelPower) {    
     System.out.println("Flywheel Power: " + flywheelPower);
     System.out.println("Flywheel Velocity: " + shooterFlywheelEncoder.getVelocity() + " RPM");
 
@@ -60,6 +58,6 @@ public class Shooter extends SubsystemBase {
 
   public void setServoPos(double pos) {
     shooterRightServo.set(pos);
-    shooterLeftServo.set(pos);
+    shooterLeftServo.set(1-pos);
   }
 }

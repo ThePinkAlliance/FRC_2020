@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
 public class Conveyor extends SubsystemBase {
-  public CANSparkMax conveyorMotor = new CANSparkMax(RobotContainer.conveyorBeltCANID, MotorType.kBrushed);
+  public CANSparkMax conveyorMotor = new CANSparkMax(RobotContainer.conveyorBeltCANID, MotorType.kBrushless);
   
-  public DigitalInput breakbeam = new DigitalInput(0);
+  public DigitalInput breakbeam = new DigitalInput(RobotContainer.breakbeamDIOPort);
 
   public Conveyor() {
   }

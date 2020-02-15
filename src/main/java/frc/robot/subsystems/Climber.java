@@ -10,7 +10,6 @@ import frc.robot.RobotContainer;
 
 public class Climber extends SubsystemBase {
   private Solenoid leftHoldClamp = new Solenoid(RobotContainer.climberLeftSolPort);
-  private Solenoid rightHoldClamp = new Solenoid(RobotContainer.climberRightSolPort);
 
   private DigitalInput leftLowLimitSwitch = new DigitalInput(RobotContainer.climberLeftLowLimitSwitch);
   private DigitalInput rightLowLimitSwitch = new DigitalInput(RobotContainer.climberRightLowLimitSwitch);
@@ -18,7 +17,7 @@ public class Climber extends SubsystemBase {
   private CANSparkMax leftClimberMotor = new CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushed);
   private CANSparkMax rightClimberMotor = new CANSparkMax(RobotContainer.climberRightCANID, MotorType.kBrushed);
 
-  private boolean armed = false;
+  private boolean armed = true;
 
   public Climber() {
   }
@@ -39,6 +38,15 @@ public class Climber extends SubsystemBase {
 
   // Drive the climber motors seperately at the speeds input
   public void driveClimbers(double leftSpeed, double rightSpeed){
+    if (leftSpeed < 0)
+      leftSpeed = -leftSpeed * leftSpeed;
+    else
+      leftSpeed = leftSpeed * leftSpeed;
+    if (rightSpeed < 0)
+      rightSpeed = -rightSpeed * rightSpeed;
+    else
+      rightSpeed = rightSpeed * rightSpeed;      
+
     if (leftSpeed < 0 && getLeftLowLimitSwitch())
       leftClimberMotor.set(0);
     else
@@ -66,7 +74,6 @@ public class Climber extends SubsystemBase {
 
   public void setSolenoids(boolean pos) {
     leftHoldClamp.set(pos);
-    rightHoldClamp.set(pos);
   }
 
   public void setArmed(boolean arm) {

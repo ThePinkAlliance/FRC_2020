@@ -46,6 +46,8 @@ public class ClimbersManual extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_climber.driveClimbers(0, 0);
+    m_climber.setSolenoids(Constants.climbersLocked);
   }
 
   // Returns true when the command should end.

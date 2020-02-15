@@ -33,15 +33,19 @@ public class ShooterFarAutomatic extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_shooter.getUptoSpeed(Constants.shooterVelocity))
+    if(m_shooter.getUptoSpeed(Constants.shooterFarVelocity))
       m_conveyor.setConveyorSpeed(Constants.conveyorSpeed);
+    else 
+      m_conveyor.setConveyorSpeed(0);
 
-    m_shooter.setFlywheelSpeed(0.7);
+    m_shooter.setFlywheelSpeed(Constants.shooterFarVoltage);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_shooter.setFlywheelSpeed(0);
+    m_conveyor.setConveyorSpeed(0);
   }
 
   // Returns true when the command should end.

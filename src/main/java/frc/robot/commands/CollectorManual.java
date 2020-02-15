@@ -15,17 +15,18 @@ public class CollectorManual extends CommandBase {
 
   @Override
   public void initialize() {
-    m_collector.setCollectorExtendSol(Constants.collectorExtended);
   }
 
   @Override
   public void execute() {
+    m_collector.setCollectorExtendSol(Constants.collectorExtended);
     m_collector.setCollectorSpeed(Constants.collectorCollectSpeed);
   }
 
   @Override
   public void end(boolean interrupted) {
     m_collector.setCollectorExtendSol(Constants.collectorRetracted);
+    m_collector.setCollectorSpeed(0);
   }
 
   @Override
