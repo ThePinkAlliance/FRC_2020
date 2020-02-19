@@ -26,9 +26,9 @@ public class Base extends SubsystemBase {
 
   public Base() {
     rightFront.setInverted(true);
-    leftFront.setInverted(true);
+    leftFront.setInverted(false);
     rightBack.setInverted(true);
-    leftBack.setInverted(true);
+    leftBack.setInverted(false);
 
     rightBack.follow(rightFront);
     leftBack.follow(leftFront);

@@ -33,13 +33,13 @@ public class ShooterCloseAutomatic extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_shooter.getUptoSpeed(Constants.shooterCloseVelocity))
-      m_conveyor.setConveyorSpeed(Constants.conveyorSpeed);
+    if(m_shooter.getUptoSpeed(m_shooter.getCloseRPM()))
+      m_conveyor.setConveyorSpeed(1);
     else
       m_conveyor.setConveyorSpeed(0);  
 
-    m_shooter.setFlywheelSpeed(Constants.shooterCloseVoltage);
-  }
+      m_shooter.setFlywheelVelocityPID(m_shooter.getCloseRPM());
+    }
 
   // Called once the command ends or is interrupted.
   @Override

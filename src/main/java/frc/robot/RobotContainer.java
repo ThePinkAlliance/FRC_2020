@@ -56,9 +56,10 @@ public class RobotContainer {
   public static int lightsPWMPort = 2;
 
   // DIO Ports
-  public static int breakbeamDIOPort = 9;
-  public static int climberLeftLowLimitSwitch = 8;
-  public static int climberRightLowLimitSwitch = 7;
+  public static int breakbeam1DIOPort = 9;
+  public static int breakbeam2DIOPort = 8;
+  public static int climberLeftLowLimitSwitch = 7;
+  public static int climberRightLowLimitSwitch = 6;
 
   // Controller Ports
   Joystick mainJS = new Joystick(0);

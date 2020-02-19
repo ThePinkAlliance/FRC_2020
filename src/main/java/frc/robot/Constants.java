@@ -11,12 +11,12 @@ public final class Constants {
     public static double shooterFarVelocity = 400;
     public static double shooterCloseVoltage = 0.7;
     public static double shooterFarVoltage = 0.7;
-    public static double conveyorSpeed = 0.5;
-    public static double collectorCollectSpeed = 0.8;
+    public static double conveyorSpeed = 0.6;
+    public static double collectorCollectSpeed = 1;
     public static boolean collectorExtended = true;
     public static boolean collectorRetracted = false;
     public static double shooterClosePos = 1;
-    public static double shooterFarPos = 0;
+    public static double shooterFarPos = 0.2;
     public static double turretSpeed = 0.8;
     public static boolean turretLeft = false;
     public static boolean turretRight = true;

@@ -10,7 +10,8 @@ import frc.robot.RobotContainer;
 public class Conveyor extends SubsystemBase {
   public CANSparkMax conveyorMotor = new CANSparkMax(RobotContainer.conveyorBeltCANID, MotorType.kBrushless);
   
-  public DigitalInput breakbeam = new DigitalInput(RobotContainer.breakbeamDIOPort);
+  public DigitalInput breakbeam1 = new DigitalInput(RobotContainer.breakbeam1DIOPort);
+  public DigitalInput breakbeam2 = new DigitalInput(RobotContainer.breakbeam2DIOPort);
 
   public Conveyor() {
   }
@@ -20,7 +21,7 @@ public class Conveyor extends SubsystemBase {
   }
 
   public boolean getBreakbeam() {
-    return !breakbeam.get();
+    return !breakbeam1.get() || !breakbeam2.get();
   }
 
   public void setConveyorSpeed(double speed) {
