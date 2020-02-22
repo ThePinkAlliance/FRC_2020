@@ -27,10 +27,10 @@ public class LightsController extends CommandBase {
   public void execute() {
     if (m_conveyor.getBreakbeam())
       m_lights.setLights(Constants.lightsYellow);
-    else if (m_shooter.getLockonState())
-      m_lights.setLights(Constants.lightsGreen);
+    // else if (m_shooter.getLockonState())
+      // m_lights.setLights(Constants.lightsGreen);
     else
-      m_lights.setLights(Constants.lightsColor1HeartbeatFast);
+      m_lights.setLights(Constants.lightsColor1LarsonScanner);
   }
 
   @Override

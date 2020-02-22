@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -14,12 +15,13 @@ public class Climber extends SubsystemBase {
   private DigitalInput leftLowLimitSwitch = new DigitalInput(RobotContainer.climberLeftLowLimitSwitch);
   private DigitalInput rightLowLimitSwitch = new DigitalInput(RobotContainer.climberRightLowLimitSwitch);
 
-  private CANSparkMax leftClimberMotor = new CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushed);
-  private CANSparkMax rightClimberMotor = new CANSparkMax(RobotContainer.climberRightCANID, MotorType.kBrushed);
+  private CANSparkMax leftClimberMotor = new CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
+  private CANSparkMax rightClimberMotor = new CANSparkMax(RobotContainer.climberRightCANID, MotorType.kBrushless);
 
   private boolean armed = true;
 
   public Climber() {
+    rightClimberMotor.setInverted(true);
   }
 
   @Override
@@ -47,11 +49,11 @@ public class Climber extends SubsystemBase {
     else
       rightSpeed = rightSpeed * rightSpeed;      
 
-    if (leftSpeed < 0 && getLeftLowLimitSwitch())
+    if (leftSpeed > 0 && getLeftLowLimitSwitch())
       leftClimberMotor.set(0);
     else
       leftClimberMotor.set(leftSpeed); 
-    if (rightSpeed < 0 && getRightLowLimitSwitch())
+    if (rightSpeed > 0 && getRightLowLimitSwitch())
       rightClimberMotor.set(0);
     else
       rightClimberMotor.set(rightSpeed); 

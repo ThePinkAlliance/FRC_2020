@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
@@ -29,18 +30,26 @@ public class ClimbersManual extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_climber.setSolenoids(Constants.climbersUnlocked);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_climber.getArmed()) {
-      if (Math.abs(leftSpeed.getAsDouble()) > 0.2 || (Math.abs(rightSpeed.getAsDouble()) > 0.2)) {
-        m_climber.setSolenoids(Constants.climbersUnlocked);
+    SmartDashboard.putBoolean("Climber Left Low Switch", m_climber.getLeftLowLimitSwitch());
+    SmartDashboard.putBoolean("Climber Right Low Switch", m_climber.getRightLowLimitSwitch());
+    SmartDashboard.putNumber("Climber Left Encoder Value", m_climber.getClimberPos(Constants.leftClimber));
+    SmartDashboard.putNumber("Climber Right Encoder Value", m_climber.getClimberPos(Constants.rightClimber));
+    SmartDashboard.putNumber("Climber Right Commanded Value", rightSpeed.getAsDouble());
+    SmartDashboard.putNumber("Climber Left Commanded Value", leftSpeed.getAsDouble());
+
+    // if (m_climber.getArmed()) {
+      // if (Math.abs(leftSpeed.getAsDouble()) > 0.2 || (Math.abs(rightSpeed.getAsDouble()) > 0.2)) {
         m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
-      } else
-        m_climber.setSolenoids(Constants.climbersLocked);
-    }
+        // m_climber.setSolenoids(Constants.climbersUnlocked); 
+      // } else
+        // m_climber.setSolenoids(Constants.climbersLocked);
+    // }
   }
 
   // Called once the command ends or is interrupted.

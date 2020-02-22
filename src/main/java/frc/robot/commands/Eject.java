@@ -7,43 +7,43 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Collector;
+import frc.robot.subsystems.Conveyor;
 
-public class ClimbersUnlock extends CommandBase {
-  private Climber m_climber;
-  private Timer time;
-  private boolean finished = false;
+public class Eject extends CommandBase {
+  private Conveyor m_conveyor;
+  private Collector m_collector;
 
-  public ClimbersUnlock(Climber climber) {
-    m_climber = climber;
+  public Eject(Conveyor conveyor, Collector collector) {
+    m_conveyor = conveyor;
+    m_collector = collector;
 
-    addRequirements(m_climber);
+    addRequirements(m_conveyor);
+    addRequirements(m_collector);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climber.setSolenoids(Constants.climbersLocked);
+    m_collector.setCollectorExtendSol(Constants.collectorExtended);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climber.setSolenoids(Constants.climbersLocked);
+    m_conveyor.setConveyorSpeed(-1);
+    m_collector.setCollectorSpeed(-1);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climber.setSolenoids(Constants.climbersUnlocked);
+    m_collector.setCollectorExtendSol(Constants.collectorRetracted);
+    m_collector.setCollectorSpeed(0);
+    m_conveyor.setConveyorSpeed(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return finished;
+    return false;
   }
 }

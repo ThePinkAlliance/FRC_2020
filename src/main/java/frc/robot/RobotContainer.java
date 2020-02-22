@@ -10,6 +10,7 @@ import frc.robot.commands.CollectorManual;
 import frc.robot.commands.ConveyorAutomated;
 import frc.robot.commands.ConveyorManual;
 import frc.robot.commands.DriveManual;
+import frc.robot.commands.Eject;
 import frc.robot.commands.FlywheelManual;
 import frc.robot.commands.LightsController;
 import frc.robot.commands.ShooterAim;
@@ -38,11 +39,11 @@ public class RobotContainer {
   public static int baseRightBackCANID    = 10; // Brushless
   public static int baseLeftFrontCANID    = 12; // Brushless
   public static int baseLeftBackCANID     = 41; // Brushless
-  public static int collectorRollerCANID  = 50; // Brushed
-  public static int conveyorBeltCANID     = 21; // Brushless
+  public static int collectorRollerCANID  = 50; // Brushless
+  public static int conveyorBeltCANID     = 62; // Brushless
   public static int shooterRotateCANID    = 60; // Brushed
   public static int shooterFlywheelCANID  = 31; // Brushless
-  public static int climberLeftCANID      = 62; // Brushless
+  public static int climberLeftCANID      = 21; // Brushless
   public static int climberRightCANID     = 13; // Brushless
   public static int panelSpinnerCANID     = 30; // Brushed
   
@@ -58,8 +59,8 @@ public class RobotContainer {
   // DIO Ports
   public static int breakbeam1DIOPort = 9;
   public static int breakbeam2DIOPort = 8;
-  public static int climberLeftLowLimitSwitch = 7;
-  public static int climberRightLowLimitSwitch = 6;
+  public static int climberLeftLowLimitSwitch = 6;
+  public static int climberRightLowLimitSwitch = 7;
 
   // Controller Ports
   Joystick mainJS = new Joystick(0);
@@ -72,14 +73,15 @@ public class RobotContainer {
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(5)));
     m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
     m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor, m_shooter));
-    // m_climber.setDefaultCommand(new ClimbersManual(m_climber, () -> gunnerJS.getRawAxis(1), () -> gunnerJS.getRawAxis(5)));
+    m_climber.setDefaultCommand(new ClimbersManual(m_climber, () -> gunnerJS.getRawAxis(1), () -> gunnerJS.getRawAxis(5)));
   }
 
   private void configureButtonBindings() {
     new JoystickButton(mainJS, 5).whenHeld(new CollectorManual(m_collector));
     // new JoystickButton(mainJS, 1).whenHeld(new ShooterAim(m_shooter));
-    // new JoystickButton(mainJS, 1).whenHeld(new ClimbersUp(m_climber));
-    new JoystickButton(mainJS, 2).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 1).whenHeld(new ClimbersUp(m_climber));
+    new JoystickButton(mainJS, 2).whenHeld(new Eject(m_conveyor, m_collector));
+    // new JoystickButton(mainJS, 2).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 3).whenHeld(new ShooterFarAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 6).whenHeld(new ConveyorManual(m_conveyor));
 

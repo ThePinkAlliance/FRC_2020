@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 
 public class Collector extends SubsystemBase {
   private Solenoid collectorExtendSol = new Solenoid(RobotContainer.collectorSolPort);
-  CANSparkMax collector = new CANSparkMax(RobotContainer.collectorRollerCANID, MotorType.kBrushed);
+  CANSparkMax collector = new CANSparkMax(RobotContainer.collectorRollerCANID, MotorType.kBrushless);
 
   public Collector() {
     collector.setInverted(true);
