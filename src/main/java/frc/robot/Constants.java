@@ -4,7 +4,7 @@ public final class Constants {
     public static double baseMotorGain = 1; 
     public static double shooterTurretMotorGain = 1;
     public static double collectorMotorGain = 1;
-    public static double shooterkP = 0;
+    public static double shooterkP = 0.1;
     public static double shooterkI = 0;
     public static double shooterkD = 0;
     public static double shooterCloseVelocity = 300;
@@ -17,7 +17,7 @@ public final class Constants {
     public static boolean collectorRetracted = false;
     public static double shooterClosePos = 1;
     public static double shooterFarPos = 0.2;
-    public static double turretSpeed = 0.8;
+    public static double turretSpeed = 1;
     public static boolean turretLeft = true;
     public static boolean turretRight = false;
 

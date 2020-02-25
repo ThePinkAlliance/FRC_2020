@@ -79,12 +79,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(mainJS, 5).whenHeld(new CollectorManual(m_collector));
     // new JoystickButton(mainJS, 1).whenHeld(new ShooterAim(m_shooter));
-    new JoystickButton(mainJS, 1).whenHeld(new ClimbersUp(m_climber));
+    // new JoystickButton(mainJS, 1).whenHeld(new ClimbersUp(m_climber));
     new JoystickButton(mainJS, 2).whenHeld(new Eject(m_conveyor, m_collector));
     // new JoystickButton(mainJS, 2).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 3).whenHeld(new ShooterFarAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 6).whenHeld(new ConveyorManual(m_conveyor));
 
+    new JoystickButton(gunnerJS, 1).whenHeld(new ShooterAim(m_shooter));    
     new JoystickButton(gunnerJS, 5).whenHeld(new TurretRotate(m_shooter, Constants.turretLeft));
     new JoystickButton(gunnerJS, 6).whenHeld(new TurretRotate(m_shooter, Constants.turretRight));
     // new JoystickButton(gunnerJS, 1).toggleWhenPressed(new ClimbersUnlock(m_climber));

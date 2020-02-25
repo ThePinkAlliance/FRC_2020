@@ -67,13 +67,18 @@ public class ShooterFarAutomatic extends CommandBase {
       
       case SHOOT:
         m_shooter.setFlywheelVelocityPID(m_shooter.getFarRPM());
-        if (!m_shooter.getUptoSpeed(m_shooter.getFarRPM())) {
-          m_conveyor.setConveyorSpeed(0);
-          stage = stage.SPIN_UP;
-        } else {
-          timer2.reset();
+        // if (!m_shooter.getUptoSpeed(m_shooter.getFarRPM())) {
+        //   m_conveyor.setConveyorSpeed(0);
+        //   stage = stage.SPIN_UP;
+        // } else {
+        //   timer2.reset();
+        //   m_conveyor.setConveyorSpeed(1);
+        // }
+        if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getFarRPM())
           m_conveyor.setConveyorSpeed(1);
-        }
+        else {
+          m_conveyor.setConveyorSpeed(0);
+        }  
         break;   
     }  
     System.out.println("Shooter Flywheel Velocity: " + m_shooter.shooterFlywheelEncoder.getVelocity());

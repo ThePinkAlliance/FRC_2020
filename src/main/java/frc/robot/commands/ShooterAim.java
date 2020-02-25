@@ -11,13 +11,15 @@ public class ShooterAim extends PIDCommand {
         new PIDController(Constants.shooterkP, Constants.shooterkI, Constants.shooterkD),
         subsystem::getLimelightError,
         () -> 0,
-        output -> {subsystem.setTurretSpeed(output);});
+        output -> subsystem.setTurretSpeed(output),
+        subsystem
+        );
 
-    addRequirements(subsystem);
+    // addRequirements(subsystem);
   }
 
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return false;
   }
 }

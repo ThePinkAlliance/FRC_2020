@@ -43,13 +43,13 @@ public class ClimbersManual extends CommandBase {
     SmartDashboard.putNumber("Climber Right Commanded Value", rightSpeed.getAsDouble());
     SmartDashboard.putNumber("Climber Left Commanded Value", leftSpeed.getAsDouble());
 
-    // if (m_climber.getArmed()) {
-      // if (Math.abs(leftSpeed.getAsDouble()) > 0.2 || (Math.abs(rightSpeed.getAsDouble()) > 0.2)) {
+    if (m_climber.getArmed()) {
+      if (Math.abs(leftSpeed.getAsDouble()) > 0.2 || (Math.abs(rightSpeed.getAsDouble()) > 0.2)) {
         m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
-        // m_climber.setSolenoids(Constants.climbersUnlocked); 
-      // } else
-        // m_climber.setSolenoids(Constants.climbersLocked);
-    // }
+        m_climber.setSolenoids(Constants.climbersUnlocked); 
+      } else
+        m_climber.setSolenoids(Constants.climbersLocked);
+    }
   }
 
   // Called once the command ends or is interrupted.

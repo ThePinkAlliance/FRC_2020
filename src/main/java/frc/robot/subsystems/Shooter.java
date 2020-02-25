@@ -87,7 +87,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getLimelightError() {
-    return shooterLimelight;
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
   }
 
   public boolean getLockonState() {
@@ -96,7 +96,8 @@ public class Shooter extends SubsystemBase {
 
   public void setTurretSpeed(double turretPower) {
     turretPower = turretPower * Constants.shooterTurretMotorGain;
-    
+    SmartDashboard.putNumber("Turret Output", turretPower);
+    SmartDashboard.putNumber("Limelight Error", getLimelightError());
     shooterTurret.set(turretPower);
   }
 
@@ -109,7 +110,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean getUptoSpeed(double velocity) {
-    if (Math.abs(shooterFlywheel.getEncoder().getVelocity() - velocity) < 50)
+    if (Math.abs(shooterFlywheel.getEncoder().getVelocity() - velocity) < 100)
       return true;
     else
       return false;

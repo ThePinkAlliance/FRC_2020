@@ -7,7 +7,11 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Shooter;
@@ -15,6 +19,13 @@ import frc.robot.subsystems.Shooter;
 public class ShooterCloseAutomatic extends CommandBase {
   private final Shooter m_shooter;
   private final Conveyor m_conveyor;
+  private Timer m_timer = new Timer();
+  private Timer timer2 = new Timer();
+  private enum Stage {
+    SPIN_UP,
+    WAIT, SHOOT
+  }
+  private Stage stage;
 
   public ShooterCloseAutomatic(Shooter shooter, Conveyor conveyor) {
     m_shooter = shooter;
@@ -28,18 +39,57 @@ public class ShooterCloseAutomatic extends CommandBase {
   @Override
   public void initialize() {
     m_shooter.setServoPos(Constants.shooterClosePos);
+    stage = Stage.SPIN_UP;
+    m_timer.start();
+    timer2.start();
+    // PIDCommand aimnow = (new PIDController(Constants.shooterkP, Constants.shooterkI, Constants.shooterkD),
+    //   m_shooter::getLimelightError,
+    //   () -> 0,
+    //   output -> m_shooter.setTurretSpeed(output),
+    //   m_shooter
+    //   ));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_shooter.getUptoSpeed(m_shooter.getCloseRPM()))
-      m_conveyor.setConveyorSpeed(1);
-    else
-      m_conveyor.setConveyorSpeed(0);  
-
-      m_shooter.setFlywheelVelocityPID(m_shooter.getCloseRPM());
-    }
+    switch (stage) {
+      case SPIN_UP:
+        m_shooter.setFlywheelVelocityPID(m_shooter.getCloseRPM());
+        m_conveyor.setConveyorSpeed(0);
+        if (m_shooter.getUptoSpeed(m_shooter.getCloseRPM())) {
+          SmartDashboard.putNumber("Time to Settle", timer2.get());
+          m_timer.reset();
+          stage = stage.WAIT;
+        }
+        break;
+      
+      case WAIT:
+        m_shooter.setFlywheelVelocityPID(m_shooter.getCloseRPM());
+        m_conveyor.setConveyorSpeed(0);
+        if (!m_shooter.getUptoSpeed(m_shooter.getCloseRPM())) 
+          stage = stage.SPIN_UP;
+        else if (m_timer.hasPeriodPassed(0.13))
+          stage= stage.SHOOT;
+        break;  
+      
+      case SHOOT:
+        m_shooter.setFlywheelVelocityPID(m_shooter.getCloseRPM());
+        // if (!m_shooter.getUptoSpeed(m_shooter.getFarRPM())) {
+        //   m_conveyor.setConveyorSpeed(0);
+        //   stage = stage.SPIN_UP;
+        // } else {
+        //   timer2.reset();
+        //   m_conveyor.setConveyorSpeed(1);
+        // }
+        if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getCloseRPM())
+          m_conveyor.setConveyorSpeed(1);
+        else {
+          m_conveyor.setConveyorSpeed(0);
+        }  
+        break;
+      }   
+    }  
 
   // Called once the command ends or is interrupted.
   @Override
