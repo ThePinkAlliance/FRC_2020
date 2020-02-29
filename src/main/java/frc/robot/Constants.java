@@ -12,11 +12,11 @@ public final class Constants {
     public static double shooterCloseVoltage = 0.7;
     public static double shooterFarVoltage = 0.7;
     public static double conveyorSpeed = 1;
-    public static double collectorCollectSpeed = 0.8;
+    public static double collectorCollectSpeed = 1;
     public static boolean collectorExtended = true;
     public static boolean collectorRetracted = false;
-    public static double shooterClosePos = 1;
-    public static double shooterFarPos = 0.2;
+    public static double shooterClosePos = 0;
+    public static double shooterFarPos = 1;
     public static double turretSpeed = 1;
     public static boolean turretLeft = true;
     public static boolean turretRight = false;
@@ -77,9 +77,14 @@ public final class Constants {
 
     // Climber Constants
     public static double climbSpeed = 1;
-    public static boolean leftClimber = false;
-    public static boolean rightClimber = true;
-    public static double climberTop = 200;
+    public static boolean leftClimber = true;
+    public static boolean rightClimber = false;
+    public static double climberTop = -205;
+    public static double climberMax = -280;
+    public static double climberMid = -245;
     public static boolean climbersLocked = false;
     public static boolean climbersUnlocked = true;
+    public static int climbToMid = 1;
+    public static int climbToLeft = 2;
+    public static int climbToRight = 3;
 }

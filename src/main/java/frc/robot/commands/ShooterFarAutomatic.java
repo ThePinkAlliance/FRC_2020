@@ -8,8 +8,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Shooter;
@@ -67,14 +69,7 @@ public class ShooterFarAutomatic extends CommandBase {
       
       case SHOOT:
         m_shooter.setFlywheelVelocityPID(m_shooter.getFarRPM());
-        // if (!m_shooter.getUptoSpeed(m_shooter.getFarRPM())) {
-        //   m_conveyor.setConveyorSpeed(0);
-        //   stage = stage.SPIN_UP;
-        // } else {
-        //   timer2.reset();
-        //   m_conveyor.setConveyorSpeed(1);
-        // }
-        if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getFarRPM())
+        if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getFarRPM() - 80)
           m_conveyor.setConveyorSpeed(1);
         else {
           m_conveyor.setConveyorSpeed(0);

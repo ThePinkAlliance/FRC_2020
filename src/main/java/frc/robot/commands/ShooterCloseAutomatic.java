@@ -42,12 +42,6 @@ public class ShooterCloseAutomatic extends CommandBase {
     stage = Stage.SPIN_UP;
     m_timer.start();
     timer2.start();
-    // PIDCommand aimnow = (new PIDController(Constants.shooterkP, Constants.shooterkI, Constants.shooterkD),
-    //   m_shooter::getLimelightError,
-    //   () -> 0,
-    //   output -> m_shooter.setTurretSpeed(output),
-    //   m_shooter
-    //   ));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -75,13 +69,6 @@ public class ShooterCloseAutomatic extends CommandBase {
       
       case SHOOT:
         m_shooter.setFlywheelVelocityPID(m_shooter.getCloseRPM());
-        // if (!m_shooter.getUptoSpeed(m_shooter.getFarRPM())) {
-        //   m_conveyor.setConveyorSpeed(0);
-        //   stage = stage.SPIN_UP;
-        // } else {
-        //   timer2.reset();
-        //   m_conveyor.setConveyorSpeed(1);
-        // }
         if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getCloseRPM())
           m_conveyor.setConveyorSpeed(1);
         else {
