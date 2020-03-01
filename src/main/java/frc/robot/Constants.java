@@ -87,4 +87,8 @@ public final class Constants {
     public static int climbToMid = 1;
     public static int climbToLeft = 2;
     public static int climbToRight = 3;
+
+    //Constants for various AUTO variables
+    public static double autoDriveSpeed = 1;
+    public static double autoDriveDistance = 100;
 }

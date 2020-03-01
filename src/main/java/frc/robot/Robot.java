@@ -33,6 +33,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
+    //TODO: if shuffleboard does not work, check this place in 2020 example code.
+
     if (m_autonomousCommand != null)
       m_autonomousCommand.schedule();
   }

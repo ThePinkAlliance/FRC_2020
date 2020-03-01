@@ -54,5 +54,14 @@ public class Base extends SubsystemBase {
     System.out.println("Left Command: " + leftGovernor);
 
     diffDrive.tankDrive(leftGovernor, rightGovernor);
-	}
+  }
+  
+  public void resetEncoders() {
+    rightFrontEncoder.setPosition(0);
+    leftFrontEncoder.setPosition(0);
+  }
+
+  public double getAverageEncoderDistance() {
+    return ((rightFrontEncoder.getPosition() + leftFrontEncoder.getPosition()) / 2);
+  }
 }

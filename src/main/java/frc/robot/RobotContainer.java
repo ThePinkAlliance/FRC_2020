@@ -1,8 +1,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.AutoDriveAndShoot;
+import frc.robot.commands.AutoShootOnly;
 import frc.robot.commands.ClimbersManual;
 import frc.robot.commands.ClimbersUnlock;
 import frc.robot.commands.ClimbersUp;
@@ -26,13 +31,17 @@ import frc.robot.subsystems.Lights;
 
 public class RobotContainer {
   // Subsystems
-  private final Command   m_autoCommand = null;
   private final Base      m_base        = new Base();
   private final Shooter   m_shooter     = new Shooter();
   private final Collector m_collector   = new Collector();
   private final Climber   m_climber     = new Climber();
   private final Conveyor  m_conveyor    = new Conveyor();
   private final Lights    m_lights      = new Lights();
+
+  //Auto command setups, per WPI example
+  private final SequentialCommandGroup m_autoShootOnly = new AutoShootOnly(m_shooter, m_conveyor);
+  private final SequentialCommandGroup m_autoDriveShoot = new AutoDriveAndShoot(m_base, m_shooter, m_conveyor); 
+  SendableChooser<SequentialCommandGroup> m_chooser = new SendableChooser<>();
 
   // CAN IDs
   public static int baseRightFrontCANID   = 40; // Brushless
@@ -74,6 +83,12 @@ public class RobotContainer {
     m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
     m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor, m_shooter));
     m_climber.setDefaultCommand(new ClimbersManual(m_climber, () -> gunnerJS.getRawAxis(1), () -> gunnerJS.getRawAxis(5)));
+
+
+    //add commands to auto chooser
+    m_chooser.setDefaultOption("Drive and shoot", m_autoDriveShoot);
+    m_chooser.addOption("Shoot only", m_autoShootOnly);
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   private void configureButtonBindings() {
@@ -97,6 +112,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return m_autoCommand;
+    return m_chooser.getSelected();
   }
 }
