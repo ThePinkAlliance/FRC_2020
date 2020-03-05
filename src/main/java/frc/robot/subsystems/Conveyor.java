@@ -14,16 +14,23 @@ public class Conveyor extends SubsystemBase {
   public CANEncoder conveyorEncoder = new CANEncoder(conveyorMotor);
   public DigitalInput breakbeam1 = new DigitalInput(RobotContainer.breakbeam1DIOPort);
   public DigitalInput breakbeam2 = new DigitalInput(RobotContainer.breakbeam2DIOPort);
+  public DigitalInput breakbeam3 = new DigitalInput(RobotContainer.breakbeam3DIOPort);
+
 
   public Conveyor() {
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Conveyor Max Capacity", getMagazineCapacity());
   }
 
   public boolean getBreakbeam() {
     return !breakbeam1.get() || !breakbeam2.get();
+  }
+
+  public boolean getMagazineCapacity() {
+    return !breakbeam3.get();
   }
 
   public void setConveyorSpeed(double speed) {

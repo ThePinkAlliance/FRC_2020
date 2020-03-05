@@ -28,7 +28,9 @@ public class ConveyorAutomated extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_conveyor.getBreakbeam())
+    if(m_conveyor.getMagazineCapacity()) {
+      m_conveyor.setConveyorSpeed(0);
+    } else if (m_conveyor.getBreakbeam())
       m_conveyor.setConveyorSpeed(Constants.conveyorSpeed);
     else
       m_conveyor.setConveyorSpeed(0);  

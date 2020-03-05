@@ -6,7 +6,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -38,7 +40,7 @@ public class Shooter extends SubsystemBase {
     kMaxOutput = 1;
     kMinOutput = 0;
     closeRPM = 3500; 
-    farRPM = 2700;
+    farRPM = 4800;
 
     shooterPIDController.setP(kP);
     shooterPIDController.setI(kI);
@@ -47,32 +49,30 @@ public class Shooter extends SubsystemBase {
     shooterPIDController.setFF(kFF);
     shooterPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    SmartDashboard.putNumber("Flywheel P Gain: ", kP);
-    SmartDashboard.putNumber("Flywheel I Gain: ", kI);
-    SmartDashboard.putNumber("Flywheel D Gain: ", kD);
-    SmartDashboard.putNumber("Flywheel Iz Gain: ", kIz);
-    SmartDashboard.putNumber("Flywheel FF Gain: ", kFF);
-    SmartDashboard.putNumber("Flywheel Max Output: ", kMaxOutput);
-    SmartDashboard.putNumber("Flywheel Min Output: ", kMinOutput);
-    SmartDashboard.putNumber("Flywheel Close RPM: ", closeRPM);
-    SmartDashboard.putNumber("Flywheel Far RPM: ", farRPM);
+    SmartDashboard.putNumber("Shooter P Gain: ", kP);
+    SmartDashboard.putNumber("Shooter I Gain: ", kI);
+    SmartDashboard.putNumber("Shooter D Gain: ", kD);
+    SmartDashboard.putNumber("Shooter Iz Gain: ", kIz);
+    SmartDashboard.putNumber("Shooter FF Gain: ", kFF);
+    SmartDashboard.putNumber("Shooter Max Output: ", kMaxOutput);
+    SmartDashboard.putNumber("Shooter Min Output: ", kMinOutput);
+    SmartDashboard.putNumber("Shooter Flywheel Close RPM: ", closeRPM);
+    SmartDashboard.putNumber("Shooter Flywheel Far RPM: ", farRPM);
 
   }
 
   @Override
   public void periodic() {
     // read PID coefficients from SmartDashboard
-    double p = SmartDashboard.getNumber("Flywheel P Gain: ", 0);
-    double i = SmartDashboard.getNumber("Flywheel I Gain: ", 0);
-    double d = SmartDashboard.getNumber("Flywheel D Gain: ", 0);
-    double iz = SmartDashboard.getNumber("Flywheel Iz Gain: ", 0);
-    double ff = SmartDashboard.getNumber("Flywheel FF Gain: ", 0);
-    double max = SmartDashboard.getNumber("Flywheel Max Output: ", 0);
-    double min = SmartDashboard.getNumber("Flywheel Min Output: ", 0);
-    double cRPM = SmartDashboard.getNumber("Flywheel Close RPM: ", 0);
-    double fRPM = SmartDashboard.getNumber("Flywheel Far RPM: ", 0);
-    SmartDashboard.putNumber("Shooter Velocity: ", shooterFlywheelEncoder.getVelocity());
-    SmartDashboard.putNumber("Shooter Power", shooterFlywheel.get());
+    double p = SmartDashboard.getNumber("Shooter P Gain: ", 0);
+    double i = SmartDashboard.getNumber("Shooter I Gain: ", 0);
+    double d = SmartDashboard.getNumber("Shooter D Gain: ", 0);
+    double iz = SmartDashboard.getNumber("Shooter Iz Gain: ", 0);
+    double ff = SmartDashboard.getNumber("Shooter FF Gain: ", 0);
+    double max = SmartDashboard.getNumber("Shooter Max Output: ", 0);
+    double min = SmartDashboard.getNumber("Shooter Min Output: ", 0);
+    double cRPM = SmartDashboard.getNumber("Shooter Close RPM: ", 0);
+    double fRPM = SmartDashboard.getNumber("Shooter Flywheel Far RPM: ", 0);
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if((p != kP)) { shooterPIDController.setP(p); kP = p; }
@@ -85,6 +85,13 @@ public class Shooter extends SubsystemBase {
       kMinOutput = min; kMaxOutput = max;}
     if((cRPM != closeRPM)) { closeRPM = cRPM; }
     if((fRPM != farRPM)) { farRPM = fRPM; }  
+
+    SmartDashboard.putNumber("Shooter Flywheel Power", shooterFlywheel.get());
+    SmartDashboard.putNumber("Shooter Flywheel Velocity", shooterFlywheelEncoder.getVelocity());
+    // SmartDashboard.putNumber("Shooter Turret Power", turretPower);
+    SmartDashboard.putNumber("Shooter Limelight Error", getLimelightError());
+    SmartDashboard.putNumber("Shooter Servo Position", getServoPos());
+    // SmartDashboard.putData("Shooter Flywheel PID", (Sendable) shooterPIDController);
   }
 
   public double getLimelightError() {
@@ -97,16 +104,10 @@ public class Shooter extends SubsystemBase {
 
   public void setTurretSpeed(double turretPower) {
     turretPower = turretPower * Constants.shooterTurretMotorGain;
-    SmartDashboard.putNumber("Turret Output", turretPower);
-    SmartDashboard.putNumber("Limelight Error", getLimelightError());
     shooterTurret.set(turretPower);
   }
 
   public void setFlywheelSpeed(double flywheelPower) {    
-    System.out.println("Flywheel Power: " + flywheelPower);
-    System.out.println("Flywheel Velocity: " + shooterFlywheelEncoder.getVelocity() + " RPM");
-    SmartDashboard.putNumber("Shooter Flywheel Velocity: ", shooterFlywheelEncoder.getVelocity());
-
     shooterFlywheel.set(flywheelPower);
   }
 
@@ -122,9 +123,12 @@ public class Shooter extends SubsystemBase {
     shooterLeftServo.set(1-pos);
   }
 
+  public double getServoPos() {
+    return shooterRightServo.get();
+  }
+
   public void setFlywheelVelocityPID(double setpoint) {
     shooterPIDController.setReference(setpoint, ControlType.kVelocity);
-    SmartDashboard.putNumber("Shooter Flywheel Setpoint: ", setpoint);
   }
 
   public double getCloseRPM() {

@@ -31,8 +31,8 @@ public class ClimbersUp extends CommandBase {
       done = m_climber.setClimberPos(Constants.climberMid, Constants.climberMax);
     } else if(climbPos == 3) { // Climb To Right
       done = m_climber.setClimberPos(Constants.climberMax, Constants.climberMid);
-    } else {
-      done = true;
+    } else if(climbPos == 4) { // Climb
+      done = m_climber.setClimberPos(m_climber.getClimberPos(Constants.rightClimber) + 50, m_climber.getClimberPos(Constants.leftClimber) + 50);
     }
   }
 

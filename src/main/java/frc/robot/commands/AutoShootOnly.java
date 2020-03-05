@@ -21,6 +21,6 @@ public class AutoShootOnly extends SequentialCommandGroup {
   public AutoShootOnly(Shooter shooter, Conveyor conveyor) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new ShooterFarAutomatic(shooter, conveyor));
+    addCommands(new ShootandAimFar(shooter, conveyor));
   }
 }

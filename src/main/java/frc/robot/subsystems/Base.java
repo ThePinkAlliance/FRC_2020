@@ -62,6 +62,6 @@ public class Base extends SubsystemBase {
   }
 
   public double getAverageEncoderDistance() {
-    return ((rightFrontEncoder.getPosition() + leftFrontEncoder.getPosition()) / 2);
+    return ((Math.abs(rightFrontEncoder.getPosition()) + Math.abs(leftFrontEncoder.getPosition())) / 2);
   }
 }

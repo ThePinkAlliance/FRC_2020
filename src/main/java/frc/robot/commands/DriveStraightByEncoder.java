@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.Base;
@@ -35,18 +36,20 @@ public class DriveStraightByEncoder extends CommandBase {
 
     //reset the encoders and drive forward at specified speed
     m_base.resetEncoders();
-    m_base.tankDriveByJoystick(speed, speed);
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_base.tankDriveByJoystick(speed, speed);
+    SmartDashboard.putNumber("Average Base Encoder Value", m_base.getAverageEncoderDistance());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("Done Driving");
     m_base.tankDriveByJoystick(0,0);
   }
 

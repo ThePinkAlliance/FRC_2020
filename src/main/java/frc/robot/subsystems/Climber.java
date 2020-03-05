@@ -91,12 +91,12 @@ public class Climber extends SubsystemBase {
   }
 
   public boolean getLeftLowLimitSwitch() {
-    System.out.println(leftLowLimitSwitch.get());
+    // System.out.println(leftLowLimitSwitch.get());
     return leftLowLimitSwitch.get();
   }
 
   public boolean getRightLowLimitSwitch() {
-    System.out.println(rightLowLimitSwitch.get());
+    // System.out.println(rightLowLimitSwitch.get());
     return rightLowLimitSwitch.get();
   }
 
