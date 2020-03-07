@@ -32,15 +32,15 @@ public class Shooter extends SubsystemBase {
     shooterFlywheel.setInverted(true);
     shooterPIDController = shooterFlywheel.getPIDController();
    
-    kP = 0.0005;
-    kI = 0.5e-7;
-    kD = 0.0002;
-    kIz = 0.000;
-    kFF = 0.000165;
+    kP = 0.0004;
+    kI = 6e-7;
+    kD = 0.00015;
+    kIz = 500;
+    kFF = 0.00015;
     kMaxOutput = 1;
     kMinOutput = 0;
     closeRPM = 3500; 
-    farRPM = 4800;
+    farRPM = 4000;
 
     shooterPIDController.setP(kP);
     shooterPIDController.setI(kI);
@@ -71,7 +71,7 @@ public class Shooter extends SubsystemBase {
     double ff = SmartDashboard.getNumber("Shooter FF Gain: ", 0);
     double max = SmartDashboard.getNumber("Shooter Max Output: ", 0);
     double min = SmartDashboard.getNumber("Shooter Min Output: ", 0);
-    double cRPM = SmartDashboard.getNumber("Shooter Close RPM: ", 0);
+    double cRPM = SmartDashboard.getNumber("Shooter Flywheel Close RPM: ", 0);
     double fRPM = SmartDashboard.getNumber("Shooter Flywheel Far RPM: ", 0);
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller

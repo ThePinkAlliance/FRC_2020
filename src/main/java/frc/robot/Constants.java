@@ -16,7 +16,7 @@ public final class Constants {
     public static boolean collectorExtended = true;
     public static boolean collectorRetracted = false;
     public static double shooterClosePos = 0;
-    public static double shooterFarPos = 0.8;
+    public static double shooterFarPos = 0.75;
     public static double turretSpeed = 1;
     public static boolean turretLeft = true;
     public static boolean turretRight = false;

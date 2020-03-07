@@ -6,6 +6,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class ShooterAim extends PIDCommand {
+  Shooter m_shooter;
   public ShooterAim(Shooter subsystem) {
     super(
         new PIDController(Constants.shooterkP, Constants.shooterkI, Constants.shooterkD),
@@ -13,11 +14,12 @@ public class ShooterAim extends PIDCommand {
         () -> 0,
         output -> subsystem.setTurretSpeed(output)
         // subsystem
-        );
+        ); 
+      m_shooter = subsystem;    
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return m_shooter.getLimelightError() < 1;
   }
 }

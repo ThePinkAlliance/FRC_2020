@@ -23,12 +23,22 @@ public class Base extends SubsystemBase {
 
   private double rightGovernor;
   private double leftGovernor;
+  private double rate = 0.25; // Time in seconds to go from 0 to full power on drive motors
 
   public Base() {
     rightFront.setInverted(true);
     leftFront.setInverted(true);
     rightBack.setInverted(true);
     leftBack.setInverted(true);
+
+    rightFront.setOpenLoopRampRate(rate);
+    rightBack.setOpenLoopRampRate(rate);
+    leftFront.setOpenLoopRampRate(rate);
+    leftBack.setOpenLoopRampRate(rate);
+    rightFront.setClosedLoopRampRate(rate);
+    rightBack.setClosedLoopRampRate(rate);
+    leftFront.setClosedLoopRampRate(rate);
+    leftBack.setClosedLoopRampRate(rate);
 
     rightBack.follow(rightFront);
     leftBack.follow(leftFront);

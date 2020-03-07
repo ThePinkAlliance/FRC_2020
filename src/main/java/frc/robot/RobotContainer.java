@@ -9,6 +9,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.AutoBackupAndShootClose;
 import frc.robot.commands.AutoDriveAndShoot;
 import frc.robot.commands.AutoShootOnly;
 import frc.robot.commands.ClimbersManual;
@@ -18,6 +19,7 @@ import frc.robot.commands.CollectorManual;
 import frc.robot.commands.ConveyorAutomated;
 import frc.robot.commands.ConveyorManual;
 import frc.robot.commands.DriveManual;
+import frc.robot.commands.DriveStraightByEncoder;
 import frc.robot.commands.Eject;
 import frc.robot.commands.FlywheelManual;
 import frc.robot.commands.LightsController;
@@ -97,6 +99,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    new JoystickButton(mainJS, 1).whenPressed(new DriveStraightByEncoder(m_base, 13, -0.75));
     new JoystickButton(mainJS, 2).whenHeld(new ShooterAim(m_shooter));
     // new JoystickButton(mainJS, 2).whenHeld(new ShootandAimClose(m_shooter, m_conveyor));
     // new JoystickButton(mainJS, 3).whenHeld(new ShootandAimFar(m_shooter, m_conveyor));
