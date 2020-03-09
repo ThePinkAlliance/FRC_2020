@@ -14,16 +14,21 @@ public class Collector extends SubsystemBase {
   private Solenoid collectorExtendSol = new Solenoid(RobotContainer.collectorSolPort);
   CANSparkMax collector = new CANSparkMax(RobotContainer.collectorRollerCANID, MotorType.kBrushless);
   CANEncoder collectorEncoder = new CANEncoder(collector); 
+  private double collectorPower = 0;
 
   public Collector() {
     collector.setInverted(true);
   }
 
-  public void setCollectorSpeed(double collectorPower) {
-    collectorPower = collectorPower * Constants.collectorMotorGain;
-    
-    System.out.println("Collector Power: " + collectorPower);
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("Collector Power", collector.get());
     SmartDashboard.putNumber("Collector Velocity: ", collectorEncoder.getVelocity());
+    SmartDashboard.putBoolean("Collector Solenoid", collectorExtendSol.get());
+  }
+
+  public void setCollectorSpeed(double collector_power) {
+    collectorPower = collector_power * Constants.collectorMotorGain;
     collector.set(collectorPower);
   }
 

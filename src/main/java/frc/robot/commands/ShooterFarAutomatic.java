@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -36,10 +29,17 @@ public class ShooterFarAutomatic extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setServoPos(Constants.shooterFarPos);
+    m_shooter.setServoPos(Constants.shooterRevFarPos);
     stage = Stage.SPIN_UP;
     m_timer.start();
     timer2.start();
+
+    m_shooter.getShooterPIDController().setP(Constants.shooterRevFarkP);
+    m_shooter.getShooterPIDController().setI(Constants.shooterRevFarkI);
+    m_shooter.getShooterPIDController().setD(Constants.shooterRevFarkD);
+    m_shooter.getShooterPIDController().setIZone(Constants.shooterRevFarkIz);
+    m_shooter.getShooterPIDController().setFF(Constants.shooterRevFarkFF);
+    m_shooter.getShooterPIDController().setOutputRange(Constants.shooterkMinOutput, Constants.shooterkMaxOutput);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,9 +47,9 @@ public class ShooterFarAutomatic extends CommandBase {
   public void execute() {
     switch (stage) {
       case SPIN_UP:
-        m_shooter.setFlywheelVelocityPID(m_shooter.getFarRPM());
+        m_shooter.setFlywheelVelocityPID(m_shooter.getFarRevRPM());
         m_conveyor.setConveyorSpeed(0);
-        if (m_shooter.getUptoSpeed(m_shooter.getFarRPM())) {
+        if (m_shooter.getUptoSpeed(m_shooter.getFarRevRPM())) {
           SmartDashboard.putNumber("Time to Settle", timer2.get());
           m_timer.reset();
           stage = stage.WAIT;
@@ -57,24 +57,23 @@ public class ShooterFarAutomatic extends CommandBase {
         break;
       
       case WAIT:
-        m_shooter.setFlywheelVelocityPID(m_shooter.getFarRPM());
+        m_shooter.setFlywheelVelocityPID(m_shooter.getFarRevRPM());
         m_conveyor.setConveyorSpeed(0);
-        if (!m_shooter.getUptoSpeed(m_shooter.getFarRPM())) 
+        if (!m_shooter.getUptoSpeed(m_shooter.getFarRevRPM())) 
           stage = stage.SPIN_UP;
         else if (m_timer.hasPeriodPassed(0.13))
           stage= stage.SHOOT;
         break;  
       
       case SHOOT:
-        m_shooter.setFlywheelVelocityPID(m_shooter.getFarRPM());
-        if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getFarRPM() - 80)
+        m_shooter.setFlywheelVelocityPID(m_shooter.getFarRevRPM());
+        if (m_shooter.shooterFlywheelEncoder.getVelocity() > m_shooter.getFarRevRPM() - 80)
           m_conveyor.setConveyorSpeed(1);
-        else {
-          m_conveyor.setConveyorSpeed(0);
-        }  
+        // else {
+        //   m_conveyor.setConveyorSpeed(0);
+        // }  
         break;   
     }  
-    System.out.println("Shooter Flywheel Velocity: " + m_shooter.shooterFlywheelEncoder.getVelocity());
   }
 
   // Called once the command ends or is interrupted.

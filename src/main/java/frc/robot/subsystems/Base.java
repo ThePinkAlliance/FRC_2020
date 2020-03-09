@@ -23,7 +23,7 @@ public class Base extends SubsystemBase {
 
   private double rightGovernor;
   private double leftGovernor;
-  private double rate = 0.25; // Time in seconds to go from 0 to full power on drive motors
+  private double rate = 0.5; // Time in seconds to go from 0 to full power on drive motors
 
   public Base() {
     rightFront.setInverted(true);
@@ -59,9 +59,6 @@ public class Base extends SubsystemBase {
 
     rightGovernor = -right * Constants.baseMotorGain;
     leftGovernor = -left * Constants.baseMotorGain;
-
-    System.out.println("Right Command: " + rightGovernor);
-    System.out.println("Left Command: " + leftGovernor);
 
     diffDrive.tankDrive(leftGovernor, rightGovernor);
   }

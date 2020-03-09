@@ -3,13 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.AutoBackupAndShootClose;
 import frc.robot.commands.AutoDriveAndShoot;
 import frc.robot.commands.AutoShootOnly;
 import frc.robot.commands.ClimbersManual;
@@ -17,18 +13,16 @@ import frc.robot.commands.ClimbersUnlock;
 import frc.robot.commands.ClimbersUp;
 import frc.robot.commands.CollectorManual;
 import frc.robot.commands.ConveyorAutomated;
-import frc.robot.commands.ConveyorManual;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.DriveStraightByEncoder;
 import frc.robot.commands.Eject;
-import frc.robot.commands.FlywheelManual;
 import frc.robot.commands.LightsController;
-import frc.robot.commands.ShootandAimClose;
 import frc.robot.commands.ShootandAimFar;
+import frc.robot.commands.ShootandAimMid;
 import frc.robot.commands.ShooterAim;
-import frc.robot.commands.ShooterFarAutomatic;
 import frc.robot.commands.TurretRotate;
 import frc.robot.commands.ShooterCloseAutomatic;
+import frc.robot.commands.ShooterMidAutomatic;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Climber;
@@ -89,7 +83,7 @@ public class RobotContainer {
     m_conveyor.setDefaultCommand(new ConveyorAutomated(m_conveyor));
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
     // m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
-    m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor, m_shooter));
+    m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor));
     m_climber.setDefaultCommand(new ClimbersManual(m_climber, () -> gunnerJS.getRawAxis(1), () -> gunnerJS.getRawAxis(3)));
 
     //add commands to auto chooser
@@ -99,12 +93,13 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(mainJS, 1).whenPressed(new DriveStraightByEncoder(m_base, 13, -0.75));
+    new JoystickButton(mainJS, 1).whenPressed(new DriveStraightByEncoder(m_base, 1.5, -0.75));
     new JoystickButton(mainJS, 2).whenHeld(new ShooterAim(m_shooter));
     // new JoystickButton(mainJS, 2).whenHeld(new ShootandAimClose(m_shooter, m_conveyor));
     // new JoystickButton(mainJS, 3).whenHeld(new ShootandAimFar(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 3).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 4).whenHeld(new Eject(m_conveyor, m_collector));
-    new JoystickButton(mainJS, 6).whenHeld(new CollectorManual(m_collector, m_conveyor));
+    new JoystickButton(mainJS, 6).whenHeld(new CollectorManual(m_collector));
 
     new JoystickButton(gunnerJS, 2).whenPressed(new ClimbersUp(m_climber, Constants.climbToMid));
     new JoystickButton(gunnerJS, 3).whenPressed(new ClimbersUp(m_climber, Constants.climbToRight));
@@ -113,7 +108,7 @@ public class RobotContainer {
     new JoystickButton(gunnerJS, 9).toggleWhenPressed(new ClimbersUnlock(m_climber));
     new JoystickButton(gunnerJS, 5).whenHeld(new TurretRotate(m_shooter, Constants.turretLeft));
     new JoystickButton(gunnerJS, 6).whenHeld(new TurretRotate(m_shooter, Constants.turretRight));
-    new JoystickButton(gunnerJS, 7).whenHeld(new ShootandAimClose(m_shooter, m_conveyor));
+    new JoystickButton(gunnerJS, 7).whenHeld(new ShootandAimMid(m_shooter, m_conveyor));
     new JoystickButton(gunnerJS, 8).whenHeld(new ShootandAimFar(m_shooter, m_conveyor));
 
   }

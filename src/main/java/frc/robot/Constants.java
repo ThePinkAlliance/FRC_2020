@@ -15,8 +15,6 @@ public final class Constants {
     public static double collectorCollectSpeed = 0.8;
     public static boolean collectorExtended = true;
     public static boolean collectorRetracted = false;
-    public static double shooterClosePos = 0;
-    public static double shooterFarPos = 0.75;
     public static double turretSpeed = 1;
     public static boolean turretLeft = true;
     public static boolean turretRight = false;
@@ -87,6 +85,48 @@ public final class Constants {
     public static int climbToMid = 1;
     public static int climbToLeft = 2;
     public static int climbToRight = 3;
+
+    // Shooter Constants
+    public static double shooterClosePos = 0;
+    public static double shooterClosekP = 0.0004;
+    public static double shooterClosekI = 6e-7;
+    public static double shooterClosekD = 0.00015;
+    public static double shooterClosekIz = 500;
+    public static double shooterClosekFF = 0.00015;
+
+    public static double shooterMidPos = 0.75;
+    public static double shooterMidkP = 0.0004;
+    public static double shooterMidkI = 6e-7;
+    public static double shooterMidkD = 0.00015;
+    public static double shooterMidkIz = 500;
+    public static double shooterMidkFF = 0.00015;
+
+    // Forwards
+    public static double shooterForFarPos = 0.75;
+    public static double shooterForFarkP = 0.0005;
+    public static double shooterForFarkI = 5e-7;
+    public static double shooterForFarkD = 0.0002;
+    public static double shooterForFarkIz = 500;
+    public static double shooterForFarkFF = 0.00015;
+
+    // Backwards
+    public static double shooterRevFarPos = 0.7;
+    public static double shooterRevFarkP = 0.0005;
+    public static double shooterRevFarkI = 5e-7;
+    public static double shooterRevFarkD = 0.0002;
+    public static double shooterRevFarkIz = 500;
+    public static double shooterRevFarkFF = 0.00014;
+
+    // Mix
+    public static double shooterMixFarPos = 0.72;
+    public static double shooterMixFarkP = 0.0005;
+    public static double shooterMixFarkI = 5e-7;
+    public static double shooterMixFarkD = 0.0002;
+    public static double shooterMixFarkIz = 500;
+    public static double shooterMixFarkFF = 0.000145;
+
+    public static double shooterkMaxOutput = 1;
+    public static double shooterkMinOutput = 0;
 
     //Constants for various AUTO variables
     public static double autoDriveSpeed = -0.75;

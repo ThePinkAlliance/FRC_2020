@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -23,7 +16,7 @@ public class AutoDriveAndShoot extends SequentialCommandGroup {
   public AutoDriveAndShoot(Base base, Shooter shooter, Conveyor conveyor) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    addCommands(new ShootandAimFar(shooter, conveyor),
+    addCommands(new ShootandAimMid(shooter, conveyor),
     new DriveStraightByEncoder(base, Constants.autoDriveDistance, Constants.autoDriveSpeed));
   }
 }
