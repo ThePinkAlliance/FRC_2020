@@ -78,39 +78,42 @@ public class RobotContainer {
   Joystick gunnerJS = new Joystick(1);
 
   public RobotContainer() {
-    configureButtonBindings();
-
-    m_conveyor.setDefaultCommand(new ConveyorAutomated(m_conveyor));
-    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
-    // m_shooter.setDefaultCommand(new FlywheelManual(m_shooter, () -> mainJS.getRawAxis(3)));
-    m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor));
-    m_climber.setDefaultCommand(new ClimbersManual(m_climber, () -> gunnerJS.getRawAxis(1), () -> gunnerJS.getRawAxis(3)));
-
-    //add commands to auto chooser
-    m_chooser.setDefaultOption("Drive and shoot", m_autoDriveShoot);
-    m_chooser.addOption("Shoot only", m_autoShootOnly);
-    Shuffleboard.getTab("Autonomous").add(m_chooser);
+    configureBaseController();
+    configureOperatorController();
+    configurePassiveCommands();
+    configureAutoChooser();
   }
 
-  private void configureButtonBindings() {
-    new JoystickButton(mainJS, 1).whenPressed(new DriveStraightByEncoder(m_base, 1.5, -0.75));
-    new JoystickButton(mainJS, 2).whenHeld(new ShooterAim(m_shooter));
-    // new JoystickButton(mainJS, 2).whenHeld(new ShootandAimClose(m_shooter, m_conveyor));
-    // new JoystickButton(mainJS, 3).whenHeld(new ShootandAimFar(m_shooter, m_conveyor));
-    new JoystickButton(mainJS, 3).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(mainJS, 4).whenHeld(new Eject(m_conveyor, m_collector));
-    new JoystickButton(mainJS, 6).whenHeld(new CollectorManual(m_collector));
-
+  private void configureOperatorController() {
+    m_climber.setDefaultCommand(new ClimbersManual(m_climber, () -> gunnerJS.getRawAxis(1), () -> gunnerJS.getRawAxis(3)));
+    new JoystickButton(gunnerJS, 1).whenPressed(new ClimbersUp(m_climber, Constants.climbToLeft));
     new JoystickButton(gunnerJS, 2).whenPressed(new ClimbersUp(m_climber, Constants.climbToMid));
     new JoystickButton(gunnerJS, 3).whenPressed(new ClimbersUp(m_climber, Constants.climbToRight));
-    new JoystickButton(gunnerJS, 1).whenPressed(new ClimbersUp(m_climber, Constants.climbToLeft));
-    new JoystickButton(gunnerJS, 4).whenPressed(new ClimbersUp(m_climber, 4));
-    new JoystickButton(gunnerJS, 9).toggleWhenPressed(new ClimbersUnlock(m_climber));
     new JoystickButton(gunnerJS, 5).whenHeld(new TurretRotate(m_shooter, Constants.turretLeft));
     new JoystickButton(gunnerJS, 6).whenHeld(new TurretRotate(m_shooter, Constants.turretRight));
     new JoystickButton(gunnerJS, 7).whenHeld(new ShootandAimMid(m_shooter, m_conveyor));
     new JoystickButton(gunnerJS, 8).whenHeld(new ShootandAimFar(m_shooter, m_conveyor));
+    new JoystickButton(gunnerJS, 9).toggleWhenPressed(new ClimbersUnlock(m_climber));
+  }
 
+  private void configureBaseController() {
+      m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
+      new JoystickButton(mainJS, 1).whenPressed(new DriveStraightByEncoder(m_base, 1.5, -0.75));
+      new JoystickButton(mainJS, 2).whenHeld(new ShooterAim(m_shooter));
+      new JoystickButton(mainJS, 3).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
+      new JoystickButton(mainJS, 4).whenHeld(new Eject(m_conveyor, m_collector));
+      new JoystickButton(mainJS, 6).whenHeld(new CollectorManual(m_collector));
+  }
+
+  private void configurePassiveCommands() {
+    m_conveyor.setDefaultCommand(new ConveyorAutomated(m_conveyor));
+    m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor));
+  }
+
+  private void configureAutoChooser() {
+    m_chooser.setDefaultOption("Drive and shoot", m_autoDriveShoot);
+    m_chooser.addOption("Shoot only", m_autoShootOnly);
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   public Command getAutonomousCommand() {
