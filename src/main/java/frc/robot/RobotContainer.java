@@ -23,6 +23,7 @@ import frc.robot.commands.ShooterAim;
 import frc.robot.commands.TurretRotate;
 import frc.robot.commands.ShooterCloseAutomatic;
 import frc.robot.commands.ShooterMidAutomatic;
+import frc.robot.commands.SpinUpAndAim;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Climber;
@@ -102,6 +103,7 @@ public class RobotContainer {
       new JoystickButton(mainJS, 2).whenHeld(new ShooterAim(m_shooter));
       new JoystickButton(mainJS, 3).whenHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
       new JoystickButton(mainJS, 4).whenHeld(new Eject(m_conveyor, m_collector));
+      new JoystickButton(mainJS, 5).whenHeld(new SpinUpAndAim(m_shooter));
       new JoystickButton(mainJS, 6).whenHeld(new CollectorManual(m_collector));
   }
 
